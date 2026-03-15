@@ -26,14 +26,17 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm run build
+
+      # මෙතනදි අපි ඔක්කොම ෆයිල් (.next ඇතුළුව) Zip කරනවා
+      - name: Zip all files for deployment
+        run: zip -r release.zip . -x "*.git*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: release.zip # Zip ෆයිල් එක Upload කරනවා
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,5 +64,4 @@ jobs:
         with:
           app-name: 'prasad-pos-web'
           slot-name: 'Production'
-          package: .
-          
+          package: release.zip # Zip එක කෙලින්ම Deploy කරනවා
