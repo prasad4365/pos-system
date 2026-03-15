@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "start": "next start",
+    "start": "node ./node_modules/next/dist/bin/next start -p 8080",
     "lint": "eslint",
     "build": "prisma generate && next build"
+    
   
   },
   "dependencies": {
